@@ -1,0 +1,324 @@
+/*-----------------------------------*\
+
+  * ======= *
+  * The Rod *
+  * ======= *
+
+  The Rod is a grid based on Zurb's Foundation Grid
+  and $TOAST-GRID by Dan Eden.
+
+
+  Settings
+  ========
+
+  * Namespaces *
+
+  $ns-row - namespace for row container
+  $ns-column - namespace for column
+
+  * Gutters *
+
+  $gt-width - gutter width
+
+  * Container *
+
+  $rm-width - container maximal width
+
+  * Breakpoints *
+
+  $bp-medium - medium screen breakpoint
+  $bp-small - small screen breakpoint
+
+  * Groups *
+
+  $cl-groups - column groups
+
+  * Base font *
+
+  $bf-size - base font size
+
+\*-----------------------------------*/
+
+$ns-row: "row" !default;
+$ns-column: "column" !default;
+
+$gt-width: 20px !default;
+
+$rm-width: 1200px !default;
+
+$bp-medium: 700px !default;
+$bp-small: 480px !default;
+
+$cl-groups: (3, 4, 5, 12) !default;
+
+$bf-size: 16px !default;
+
+@function em($px, $base: $bf-size) {
+    @return ($px / $base) * 1em;
+}
+
+
+.#{ $ns-row } {
+  box-sizing: border-box;
+  max-width: $rm-width;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.expanded {
+    max-width: 100%
+  }
+
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// Column width
+%full               { width: percentage(1 / 1) }
+%half               { width: percentage(1 / 2) }
+%third              { width: percentage(1 / 3) }
+%two-thirds         { width: percentage(2 / 3) }
+%quarter            { width: percentage(1 / 4) }
+%three-fourths      { width: percentage(3 / 4) }
+
+// Push
+%push-full          { margin-left: percentage(1 / 1) }
+%push-half          { margin-left: percentage(1 / 2) }
+%push-third         { margin-left: percentage(1 / 3) }
+%push-two-thirds    { margin-left: percentage(2 / 3) }
+%push-quarter       { margin-left: percentage(1 / 4) }
+%push-three-fourths { margin-left: percentage(3 / 4) }
+
+// Pull
+%pull-full          { margin-left: - percentage(1 / 1) }
+%pull-half          { margin-left: - percentage(1 / 2) }
+%pull-third         { margin-left: - percentage(1 / 3) }
+%pull-two-thirds    { margin-left: - percentage(2 / 3) }
+%pull-quarter       { margin-left: - percentage(1 / 4) }
+%pull-three-fourths { margin-left: - percentage(3 / 4) }
+
+@each $group in $cl-groups {
+
+  @for $i from 1 through $group {
+
+    .large--#{ $i }-#{ $group },
+    .medium--#{ $i }-#{ $group },
+    .small--#{ $i }-#{ $group } {
+      @if percentage($i / $group) == percentage(1 / 1) {
+        @extend %full;
+      } @else if percentage($i / $group) == percentage(1 / 2) {
+        @extend %half;
+      } @else if percentage($i / $group) == percentage(1 / 3) {
+        @extend %third;
+      } @else if percentage($i / $group) == percentage(2 / 3) {
+        @extend %two-thirds;
+      } @else if percentage($i / $group) == percentage(1 / 4) {
+        @extend %quarter;
+      } @else if percentage($i / $group) == percentage(2 / 4 ) {
+        @extend %half;
+      } @else if percentage($i / $group) == percentage(3 / 4) {
+        @extend %three-fourths;
+      } @else {
+        width: percentage($i / $group);
+      }
+    }
+
+    .push--#{ $i }-#{ $group } {
+      @if percentage($i / $group) == percentage(1 / 1) {
+        @extend %push-full;
+      } @else if percentage($i / $group) == percentage(1 / 2) {
+        @extend %push-half;
+      } @else if percentage($i / $group) == percentage(1 / 3) {
+        @extend %push-third;
+      } @else if percentage($i / $group) == percentage(2 / 3) {
+        @extend %push-two-thirds;
+      } @else if percentage($i / $group) == percentage(1 / 4) {
+        @extend %push-quarter;
+      } @else if percentage($i / $group) == percentage(2 / 4 ) {
+        @extend %push-half;
+      } @else if percentage($i / $group) == percentage(3 / 4) {
+        @extend %push-three-fourths;
+      } @else {
+        margin-left: percentage($i / $group);
+      }
+    } // end pushes
+
+    .pull--#{ $i }-#{ $group } {
+      @if percentage($i / $group) == percentage(1 / 1) {
+        @extend %pull-full;
+      } @else if percentage($i / $group) == percentage(1 / 2) {
+        @extend %pull-half;
+      } @else if percentage($i / $group) == percentage(1 / 3) {
+        @extend %pull-third;
+      } @else if percentage($i / $group) == percentage(2 / 3) {
+        @extend %pull-two-thirds;
+      } @else if percentage($i / $group) == percentage(1 / 4) {
+        @extend %pull-quarter;
+      } @else if percentage($i / $group) == percentage(2 / 4 ) {
+        @extend %pull-half;
+      } @else if percentage($i / $group) == percentage(3 / 4) {
+        @extend %pull-three-fourths;
+      } @else {
+        margin-left: - percentage($i / $group);
+      }
+    } // end pulls
+
+  } // end @for
+
+} // end @each
+
+.#{ $ns-column } {
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  padding-left: em($gt-width / 2);
+  padding-right: em($gt-width / 2);
+
+  &:last-child:not(:first-child) {
+    margin-right: 0;
+    float: right;
+  }
+
+  &.first {
+    float: left;
+  }
+
+  &.last {
+    float: right;
+  }
+
+  &.centered {
+    display: block;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.no-gutter {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.close:last-child:last-child {
+    float: left;
+  }
+
+  &.hide-on-large {
+    display: none;
+  }
+
+  &.show-on-large {
+    display: block;
+  }
+
+  @media (max-width: $bp-medium) and (min-width: $bp-small) {
+
+    &[class*="large"] {
+      width: 100%;
+      float: none;
+    }
+
+    &[class*="push"],
+    &[class*="pull"] {
+      margin-left: 0;
+    }
+
+    &.hide-on-medium {
+      display: none;
+    }
+
+    &.show-on-medium {
+      display: block;
+    }
+
+    @each $group in $cl-groups {
+
+      @for $i from 1 through $group {
+
+        &.medium--#{ $i }-#{ $group } {
+          float: left;
+
+          @if percentage($i / $group) == percentage(1 / 1) {
+            width: percentage(1 / 1)
+          } @else if percentage($i / $group) == percentage(1 / 2) {
+            width: percentage(1 / 2)
+          } @else if percentage($i / $group) == percentage(1 / 3) {
+            width: percentage(1 / 3)
+          } @else if percentage($i / $group) == percentage(2 / 3) {
+            width: percentage(2 / 3)
+          } @else if percentage($i / $group) == percentage(1 / 4) {
+            width: percentage(1 / 4)
+          } @else if percentage($i / $group) == percentage(2 / 4 ) {
+            width: percentage(1 / 2)
+          } @else if percentage($i / $group) == percentage(3 / 4) {
+            width: percentage(3 / 4)
+          } @else {
+            width: percentage($i / $group);
+          }
+        }
+
+      } // end @for
+
+    } // end @each
+
+  } // end @media
+
+  @media (max-width: $bp-small) {
+    &[class*="large"],
+    &[class*="medium"] {
+      width: 100%;
+      float: none;
+    }
+
+    &[class*="push"],
+    &[class*="pull"] {
+      margin-left: 0;
+    }
+
+    &.hide-on-small {
+      display: none;
+    }
+
+    &.show-on-small {
+      display: block;
+    }
+
+    @each $group in $cl-groups {
+
+      @for $i from 1 through $group {
+
+        &.small--#{ $i }-#{ $group } {
+          float: left;
+
+          @if percentage($i / $group) == percentage(1 / 1) {
+            width: percentage(1 / 1)
+          } @else if percentage($i / $group) == percentage(1 / 2) {
+            width: percentage(1 / 2)
+          } @else if percentage($i / $group) == percentage(1 / 3) {
+            width: percentage(1 / 3)
+          } @else if percentage($i / $group) == percentage(2 / 3) {
+            width: percentage(2 / 3)
+          } @else if percentage($i / $group) == percentage(1 / 4) {
+            width: percentage(1 / 4)
+          } @else if percentage($i / $group) == percentage(2 / 4 ) {
+            width: percentage(1 / 2)
+          } @else if percentage($i / $group) == percentage(3 / 4) {
+            width: percentage(3 / 4)
+          } @else {
+            width: percentage($i / $group);
+          }
+        }
+
+      } // end @for
+
+    } // end @each
+
+  } // end @media
+
+}
