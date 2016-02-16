@@ -37,7 +37,17 @@
 
   $bf-size - base font size
 
+  ========
+  That's it. Have fun and build easy.
+
 \*-----------------------------------*/
+img {
+  display: block;
+  min-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
 .row {
   box-sizing: border-box;
   max-width: 1200px;
@@ -553,5 +563,3 @@
     width: 100%;
   }
 }
-
-/*# sourceMappingURL=rod.css.map */

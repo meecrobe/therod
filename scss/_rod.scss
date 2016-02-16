@@ -37,6 +37,9 @@
 
   $bf-size - base font size
 
+  ========
+  That's it. Have fun and build easy.
+
 \*-----------------------------------*/
 
 $ns-row: "row" !default;
@@ -57,6 +60,12 @@ $bf-size: 16px !default;
     @return ($px / $base) * 1em;
 }
 
+img {
+  display: block;
+  min-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
 
 .#{ $ns-row } {
   box-sizing: border-box;
