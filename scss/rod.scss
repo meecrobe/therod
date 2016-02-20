@@ -45,7 +45,7 @@
 $ns-row: "row" !default;
 $ns-column: "column" !default;
 
-$gt-width: 20px !default;
+$gt-width: 20 !default;
 
 $rm-width: 1200px !default;
 
@@ -60,6 +60,16 @@ $bf-size: 16px !default;
     @return ($px / $base) * 1em;
 }
 
+* {
+  &,
+  &:before,
+  &:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
 img {
   display: block;
   min-width: 100%;
@@ -68,7 +78,6 @@ img {
 }
 
 .#{ $ns-row } {
-  box-sizing: border-box;
   max-width: $rm-width;
   margin-left: auto;
   margin-right: auto;
@@ -183,11 +192,10 @@ img {
 } // end @each
 
 .#{ $ns-column } {
-  box-sizing: border-box;
   display: block;
   float: left;
-  padding-left: em($gt-width / 2);
-  padding-right: em($gt-width / 2);
+  padding-left: percentage($gt-width / 2);
+  padding-right: percentage($gt-width / 2);
 
   &:last-child:not(:first-child) {
     margin-right: 0;
@@ -226,7 +234,7 @@ img {
     display: block;
   }
 
-  @media (max-width: $bp-medium) and (min-width: $bp-small) {
+  @media screen and (max-width: $bp-medium) and (min-width: $bp-small) {
 
     &[class*="large"] {
       width: 100%;
@@ -278,7 +286,7 @@ img {
 
   } // end @media
 
-  @media (max-width: $bp-small) {
+  @media screen and (max-width: $bp-small) {
     &[class*="large"],
     &[class*="medium"] {
       width: 100%;
